@@ -2,8 +2,6 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.Random;
 
 public class AMVRandomizer {
 
-    public static final String SWF_PATH = "W:\\STUFF FOLDER\\amv"; // path to swf directory, or really any directory i guess
+    public static final String SWF_PATH = "W:\\STUFF FOLDER\\amv";  // path to any directory
     static final ArrayList<File> FILE_LIST = new ArrayList<>(Arrays
             .asList(Objects.requireNonNull(new File(SWF_PATH).listFiles())));
     static final JFrame frame = new JFrame();
@@ -22,18 +20,12 @@ public class AMVRandomizer {
     static File previousFile;
 
     public static void main(String[] args) {
-        //TODO: commit to git repo
-        //TODO: listen for keybinding to play next swf
         //TODO: hide button boarders
-
-
-        // TODO: later make the panel how multiple rows and support randomizing amvs, movies, and flash files, all while keeping an inteneral array list
 
         frame.setSize(599, 75); // not the real size, but a hack, see below
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setTitle("SWF Randomizer");
-        //frame.setIconImage("guts.png"); // TODO: maybe later, files are in main
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE); // good if you want no bar
 
         // other bars
@@ -58,16 +50,14 @@ public class AMVRandomizer {
         getRandomSwf.setBackground(Color.BLACK);
         getRandomSwf.setForeground(Color.GRAY);
 
-        getRandomSwf.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    previousFile = openSwfAndReturnName();
-                    filename.setText(previousFile.getName());
-                    filename.setForeground(Color.GRAY);
-                    buttonPanel.add(filename);
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
+        getRandomSwf.addActionListener(e -> {
+            try {
+                previousFile = openSwfAndReturnName();
+                filename.setText(previousFile.getName());
+                filename.setForeground(Color.GRAY);
+                buttonPanel.add(filename);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         });
         buttonPanel.add(getRandomSwf);
@@ -75,21 +65,19 @@ public class AMVRandomizer {
         currentButton.setBackground(Color.BLACK);
         currentButton.setForeground(Color.GRAY);
 
-        currentButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (previousFile != null) {
-                        Desktop.getDesktop().open(previousFile);
-                        buttonPanel.add(filename);
-                    } else {
-                        previousFile = openSwfAndReturnName();
-                        filename.setText(previousFile.getName());
-                        filename.setForeground(Color.GRAY);
-                        buttonPanel.add(filename);
-                    }
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+        currentButton.addActionListener(e -> {
+            try {
+                if (previousFile != null) {
+                    Desktop.getDesktop().open(previousFile);
+                    buttonPanel.add(filename);
+                } else {
+                    previousFile = openSwfAndReturnName();
+                    filename.setText(previousFile.getName());
+                    filename.setForeground(Color.GRAY);
+                    buttonPanel.add(filename);
                 }
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         });
 
@@ -99,13 +87,11 @@ public class AMVRandomizer {
         closeButton.setBackground(Color.BLACK);
         closeButton.setForeground(Color.GRAY);
         buttonPanel.add(closeButton);
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
+        closeButton.addActionListener(e -> {
+            try {
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         });
         frame.add(buttonPanel);
