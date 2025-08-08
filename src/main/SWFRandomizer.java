@@ -26,7 +26,7 @@ public class SWFRandomizer {
         //TODO: listen for keybinding to play next swf
         //TODO: hide button boarders
 
-        frame.setSize(599,75); // not the real size, but a hack, see below
+        frame.setSize(599, 75); // not the real size, but a hack, see below
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("SWF Randomizer");
         //frame.setIconImage("guts.png"); // TODO: maybe later, files are in main
@@ -45,7 +45,7 @@ public class SWFRandomizer {
 
         frame.setUndecorated(true);
         frame.setVisible(true);
-        frame.setSize(600,40); //hack to reload panel
+        frame.setSize(600, 40); //hack to reload panel
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBackground(Color.black);
@@ -75,7 +75,7 @@ public class SWFRandomizer {
         currentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(previousFile != null) {
+                    if (previousFile != null) {
                         Desktop.getDesktop().open(previousFile);
                         buttonPanel.add(filename);
                     } else {
@@ -110,7 +110,7 @@ public class SWFRandomizer {
 
     public static File openSwfAndReturnName() throws Exception {
         File currentSwf = getRandomFile();
-        if(currentSwf.isDirectory()) { // remove directories when found
+        if (currentSwf.isDirectory()) { // remove directories when found
             FILE_LIST.remove(currentSwf);
             currentSwf = getRandomFile();
         }

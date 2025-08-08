@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Movie {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         // FileRandomizer.getRandomFile("R:\\Videos");
     }
 }
