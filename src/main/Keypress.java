@@ -10,7 +10,7 @@ public class Keypress {
             Robot robot = new Robot();
 
             // Simulate a key press'
-            while(true) {
+            while (true) {
                 robot.delay(100);
                 robot.keyPress(KeyEvent.VK_SPACE);
                 robot.delay(50);

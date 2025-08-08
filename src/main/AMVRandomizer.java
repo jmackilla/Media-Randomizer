@@ -25,13 +25,13 @@ public class AMVRandomizer {
         //TODO: commit to git repo
         //TODO: listen for keybinding to play next swf
         //TODO: hide button boarders
-        
-        
+
+
         // TODO: later make the panel how multiple rows and support randomizing amvs, movies, and flash files, all while keeping an inteneral array list
 
-        frame.setSize(599,75); // not the real size, but a hack, see below
+        frame.setSize(599, 75); // not the real size, but a hack, see below
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         frame.setTitle("SWF Randomizer");
         //frame.setIconImage("guts.png"); // TODO: maybe later, files are in main
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE); // good if you want no bar
@@ -49,7 +49,7 @@ public class AMVRandomizer {
 
         frame.setUndecorated(true);
         frame.setVisible(true);
-        frame.setBounds(0,40, 600,40);
+        frame.setBounds(0, 40, 600, 40);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBackground(Color.black);
 
@@ -78,7 +78,7 @@ public class AMVRandomizer {
         currentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(previousFile != null) {
+                    if (previousFile != null) {
                         Desktop.getDesktop().open(previousFile);
                         buttonPanel.add(filename);
                     } else {
@@ -113,7 +113,7 @@ public class AMVRandomizer {
 
     public static File openSwfAndReturnName() throws Exception {
         File currentSwf = getRandomFile();
-        if(currentSwf.isDirectory()) { // remove directories when found
+        if (currentSwf.isDirectory()) { // remove directories when found
             FILE_LIST.remove(currentSwf);
             currentSwf = getRandomFile();
         }
