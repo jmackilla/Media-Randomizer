@@ -1,11 +1,10 @@
 package main;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class MouseDrag {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             Robot robot = new Robot();
 
