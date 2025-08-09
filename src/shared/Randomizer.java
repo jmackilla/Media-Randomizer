@@ -1,4 +1,4 @@
-package main;
+package shared;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,22 +9,26 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-public class SWFRandomizer {
 
-    public static final String SWF_PATH = "W:\\STUFF FOLDER\\lel"; // path to any directory
-    static final ArrayList<File> FILE_LIST = new ArrayList<>(Arrays
-            .asList(Objects.requireNonNull(new File(SWF_PATH).listFiles())));
-    static final JFrame frame = new JFrame();
-    static final JLabel filename = new JLabel("");
-    static JButton currentButton;
-    static File previousFile;
+public class Randomizer {
 
-    public static void main(String[] args) {
+    // TODO: add keybindings to play next file
+    private final int topMargin;
+    ArrayList<File> fileList;
+    private final JFrame frame = new JFrame();
+    private File previousFile;
+
+    public Randomizer(String path, int topMargin) {
+        this.fileList = new ArrayList<>(Arrays
+                .asList(Objects.requireNonNull(new File(path).listFiles())));
+        this.topMargin = topMargin;        
+    }
+
+    public void init() {
         //TODO: hide button boarders
 
         frame.setSize(599, 75); // not the real size, but a hack, see below
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("SWF Randomizer");
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE); // good if you want no bar
 
         // other bars
@@ -40,10 +44,12 @@ public class SWFRandomizer {
 
         frame.setUndecorated(true);
         frame.setVisible(true);
-        frame.setSize(600, 40); //hack to reload panel
+        frame.setBounds(0, topMargin, 600, 40);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBackground(Color.black);
+
+        JLabel filename = new JLabel("");
 
         buttonPanel.add(filename);
         JButton getRandomSwf = new JButton("Play");
@@ -61,6 +67,9 @@ public class SWFRandomizer {
             }
         });
         buttonPanel.add(getRandomSwf);
+
+        JButton currentButton;
+
         currentButton = new JButton("Replay");
         currentButton.setBackground(Color.BLACK);
         currentButton.setForeground(Color.GRAY);
@@ -97,20 +106,22 @@ public class SWFRandomizer {
         frame.add(buttonPanel);
     }
 
-    public static File openSwfAndReturnName() throws Exception {
+    public File openSwfAndReturnName() throws Exception {
         File currentSwf = getRandomFile();
         if (currentSwf.isDirectory()) { // remove directories when found
-            FILE_LIST.remove(currentSwf);
+            fileList.remove(currentSwf);
             currentSwf = getRandomFile();
         }
         Desktop.getDesktop().open(currentSwf);
-        FILE_LIST.remove(currentSwf);
+        fileList.remove(currentSwf);
         return currentSwf;
     }
 
-    public static File getRandomFile() {
+    public File getRandomFile() {
         Random rand = new Random();
-        int index = rand.nextInt(FILE_LIST.size());
-        return FILE_LIST.get(index);
+        int index = rand.nextInt(fileList.size());
+        return fileList.get(index);
     }
 }
+
+

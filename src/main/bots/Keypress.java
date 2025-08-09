@@ -1,4 +1,4 @@
-package main;
+package main.bots;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
