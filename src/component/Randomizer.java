@@ -29,14 +29,11 @@ public class Randomizer {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBackground(Color.black);
 
-        JLabel filename = new JLabel("");
-        // JLabel filename = new JLabel(path); // TODO: set path and fix that bug
-
-        buttonPanel.add(filename);
+        JLabel filename = new JLabel(path);
+ 
         JButton getRandomSwf = new JButton("Play");
         getRandomSwf.setBackground(Color.BLACK);
         getRandomSwf.setForeground(Color.GRAY);
-        
         
         ArrayList<File> files = new ArrayList<>(Arrays
                 .asList(Objects.requireNonNull(new File(path).listFiles()))); 
@@ -92,6 +89,7 @@ public class Randomizer {
             });
         }
 
+        buttonPanel.add(filename);
         frame.add(buttonPanel);
 
     }
