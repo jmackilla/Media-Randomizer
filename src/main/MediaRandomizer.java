@@ -12,7 +12,7 @@ public static final int ROW_THREE = 80;
 
 public static final int ROW_FOUR = 120;
 
-public static final int ROW_GIVE = 160;
+public static final int ROW_FIVE = 160;
 
     public static void main(String[] args) {
 
@@ -28,7 +28,7 @@ public static final int ROW_GIVE = 160;
         Randomizer randomizer4 = new Randomizer("W:\\STUFF FOLDER\\Clover videos", ROW_FOUR);
         randomizer4.init();
 
-        Randomizer randomizer5 = new Randomizer("W:\\Videos", ROW_GIVE, true);
+        Randomizer randomizer5 = new Randomizer("W:\\Videos", ROW_FIVE, true);
         randomizer5.init();
     }
 }
