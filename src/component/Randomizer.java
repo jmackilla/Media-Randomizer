@@ -13,42 +13,37 @@ import java.util.Random;
  * Single directory file randomizer with GUI
  */
 public class Randomizer {
-
-    private final int topMargin;
-    private final boolean showExit;
-    ArrayList<File> fileList;
+    
     private File previousFile;
 
     public Randomizer(String path, int topMargin, boolean showExit) {
-        this.fileList = new ArrayList<>(Arrays
-                .asList(Objects.requireNonNull(new File(path).listFiles())));
-        this.topMargin = topMargin;
-        this.showExit = showExit;
+        init(path, topMargin, showExit);
     }
 
     public Randomizer(String path, int topMargin) {
-        this.fileList = new ArrayList<>(Arrays
-                .asList(Objects.requireNonNull(new File(path).listFiles())));
-        this.topMargin = topMargin;
-        this.showExit = false;
+        init(path, topMargin, false);
     }
 
-
-    public void init() {
+    public void init(String path, int topMargin, boolean showExit) {
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBackground(Color.black);
 
         JLabel filename = new JLabel("");
+        // JLabel filename = new JLabel(path); // TODO: set path and fix that bug
 
         buttonPanel.add(filename);
         JButton getRandomSwf = new JButton("Play");
         getRandomSwf.setBackground(Color.BLACK);
         getRandomSwf.setForeground(Color.GRAY);
+        
+        
+        ArrayList<File> files = new ArrayList<>(Arrays
+                .asList(Objects.requireNonNull(new File(path).listFiles()))); 
 
         getRandomSwf.addActionListener(e -> {
             try {
-                previousFile = openSwfAndReturnName();
+                previousFile = openSwfAndReturnName(files);
                 filename.setText(previousFile.getName());
                 filename.setForeground(Color.GRAY);
                 buttonPanel.add(filename);
@@ -70,7 +65,7 @@ public class Randomizer {
                     Desktop.getDesktop().open(previousFile);
                     buttonPanel.add(filename);
                 } else {
-                    previousFile = openSwfAndReturnName();
+                    previousFile = openSwfAndReturnName(files);
                     filename.setText(previousFile.getName());
                     filename.setForeground(Color.GRAY);
                     buttonPanel.add(filename);
@@ -82,7 +77,7 @@ public class Randomizer {
 
         buttonPanel.add(currentButton);
 
-        Frame frame = createFrame();
+        Frame frame = createFrame(topMargin);
         if (showExit) {
             JButton closeButton = new JButton("Exit");
             closeButton.setBackground(Color.BLACK);
@@ -101,7 +96,7 @@ public class Randomizer {
 
     }
 
-    public JFrame createFrame() {
+    public JFrame createFrame(int topMargin) {
         JFrame frame = new JFrame();
 
         frame.setSize(600, 75); // not the real size, but a hack, see below
@@ -127,21 +122,21 @@ public class Randomizer {
         return frame;
     }
 
-    public File openSwfAndReturnName() throws Exception {
-        File currentSwf = getRandomFile();
+    public File openSwfAndReturnName(ArrayList<File> files) throws Exception {
+        File currentSwf = getRandomFile(files);
         if (currentSwf.isDirectory()) { // remove directories when found
-            fileList.remove(currentSwf);
-            currentSwf = getRandomFile();
+            files.remove(currentSwf);
+            currentSwf = getRandomFile(files);
         }
         Desktop.getDesktop().open(currentSwf);
-        fileList.remove(currentSwf);
+        files.remove(currentSwf);
         return currentSwf;
     }
 
-    public File getRandomFile() {
+    public File getRandomFile(ArrayList<File> files) {
         Random rand = new Random();
-        int index = rand.nextInt(fileList.size());
-        return fileList.get(index);
+        int index = rand.nextInt(files.size());
+        return files.get(index);
     }
 }
 
