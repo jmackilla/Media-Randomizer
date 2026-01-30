@@ -23,6 +23,8 @@ public class Randomizer {
     public Randomizer(String path, int topMargin) {
         init(path, topMargin, false);
     }
+    
+    // TODO: I can tab between play and replay but I cannot hit enter to button press
 
     public void init(String path, int topMargin, boolean showExit) {
         
